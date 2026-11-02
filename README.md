@@ -109,6 +109,22 @@ La aplicación web estará disponible en: **`http://localhost:5173`**
 
 ---
 
+## 📋 Implementación de la Historia de Usuario 6 (HU06)
+
+> **Historia de Usuario:**
+> *«Como equipo de desarrollo, quiero definir el diseño del sistema antes de su implementación, para reducir ambigüedades y facilitar la integración».* (3 PE — 24 horas)
+>
+> **Aceptación:** Diseños coherentes con el alcance y disponibles para orientar la implementación.
+
+### Documentación y Artefactos Entregados:
+* 📄 **Documento Maestro de Arquitectura y Diseño:** [`docs/HU06_DISENO_FUNCIONAL_Y_ARQUITECTURA.md`](docs/HU06_DISENO_FUNCIONAL_Y_ARQUITECTURA.md)
+* **Desglose de Tareas Realizadas (Total: 24h estimadas):**
+  1. **Casos de uso y modelo de datos (8h):** Matriz exhaustiva de actores (Cliente, Admin, Sistema), diagrama de casos de uso Mermaid, especificación formal de CU-03 (Disponibilidad) y CU-04 (Creación de Reserva), diagrama Entidad-Relación (ERD) completo y diccionario técnico de datos en PostgreSQL 17.
+  2. **Arquitectura, componentes y secuencia de creación de reserva (8h):** Arquitectura desacoplada en capas (React SPA, Spring Security Gateway, WebMVC Controllers, Services transaccionales ACID, Spring Data JPA, PostgreSQL), diagrama de secuencia de reserva con prevención de colisiones horarias (*Race Conditions*) y patrones de diseño aplicados.
+  3. **Wireframes y prototipo de interfaces principales (8h):** Wireframes estructurales de alta fidelidad para Consulta de Disponibilidad de Turnos, Modal de Liquidación, Panel de Mis Reservas y Agenda General Administrativa tipo Gantt.
+
+---
+
 ## 🧪 Pruebas Automatizadas
 
 Para ejecutar la suite de pruebas unitarias y de integración del backend:
