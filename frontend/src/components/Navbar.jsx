@@ -1,16 +1,19 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Trophy, LogOut, User, ShieldCheck } from 'lucide-react';
+import { Trophy, LogOut, User, ShieldCheck, Calendar, Settings } from 'lucide-react';
 
 export default function Navbar() {
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     await logout();
     navigate('/login');
   };
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <header style={{
@@ -68,6 +71,46 @@ export default function Navbar() {
             </span>
           </div>
         </Link>
+
+        {/* Central Nav Links */}
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+          {isAuthenticated && (
+            <Link
+              to="/dashboard"
+              className={`btn ${isActive('/dashboard') ? 'btn-primary' : 'btn-secondary'}`}
+              style={{ padding: '0.45rem 0.85rem', fontSize: '0.85rem' }}
+            >
+              Inicio
+            </Link>
+          )}
+
+          <Link
+            to="/canchas"
+            className={`btn ${isActive('/canchas') ? 'btn-primary' : 'btn-secondary'}`}
+            style={{ padding: '0.45rem 0.85rem', fontSize: '0.85rem' }}
+          >
+            <Calendar size={15} />
+            <span>Catálogo de Canchas</span>
+          </Link>
+
+          {isAdmin && (
+            <Link
+              to="/admin/canchas"
+              className={`btn ${isActive('/admin/canchas') ? 'btn-dark' : 'btn-secondary'}`}
+              style={{
+                padding: '0.45rem 0.85rem',
+                fontSize: '0.85rem',
+                borderColor: isActive('/admin/canchas') ? 'var(--secondary)' : '#fde68a',
+                backgroundColor: isActive('/admin/canchas') ? 'var(--secondary)' : '#fefce8'
+              }}
+            >
+              <Settings size={15} color="#b45309" />
+              <span style={{ color: isActive('/admin/canchas') ? '#ffffff' : '#92400e', fontWeight: 700 }}>
+                Gestión Canchas
+              </span>
+            </Link>
+          )}
+        </nav>
 
         {/* Navigation links & User Session */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>

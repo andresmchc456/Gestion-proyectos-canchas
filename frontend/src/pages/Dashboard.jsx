@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { authApi } from '../api/authApi';
 import Alert from '../components/Alert';
@@ -13,7 +14,9 @@ import {
   KeyRound,
   FileText,
   AlertTriangle,
-  Clock
+  Clock,
+  ArrowRight,
+  Settings
 } from 'lucide-react';
 
 export default function Dashboard() {
@@ -318,25 +321,41 @@ export default function Dashboard() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
           gap: '1.25rem'
         }}>
-          {/* Tarjeta Canchas */}
-          <div className="card">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.75rem' }}>
-              <div style={{
-                backgroundColor: 'var(--primary-light)',
-                color: 'var(--primary-dark)',
-                padding: '0.5rem',
-                borderRadius: '8px'
-              }}>
-                <Calendar size={20} />
+          {/* Tarjeta Canchas - MÓDULO ACTIVO */}
+          <div className="card" style={{ border: '1.5px solid var(--primary-border)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <div style={{
+                  backgroundColor: 'var(--primary-light)',
+                  color: 'var(--primary-dark)',
+                  padding: '0.5rem',
+                  borderRadius: '8px'
+                }}>
+                  <Calendar size={20} />
+                </div>
+                <h4 style={{ fontSize: '1rem' }}>Canchas y Horarios</h4>
               </div>
-              <h4 style={{ fontSize: '1rem' }}>Canchas Deportivas</h4>
+              <span className="badge" style={{ backgroundColor: '#dcfce7', color: '#15803d', fontSize: '0.65rem' }}>
+                ¡Módulo Activo!
+              </span>
             </div>
-            <p style={{ fontSize: '0.85rem', marginBottom: '1rem' }}>
-              Fútbol 5, Sintética, Tenis y Baloncesto con horarios y tarifas por hora.
+            <p style={{ fontSize: '0.85rem', marginBottom: '1rem', color: 'var(--text-muted)' }}>
+              {isAdmin
+                ? 'Configura precios, superficies, horarios y habilita o desactiva canchas en mantenimiento.'
+                : 'Consulta la oferta actualizada de canchas de fútbol, tenis, pádel y baloncesto disponibles.'}
             </p>
-            <span className="badge badge-client" style={{ fontSize: '0.7rem' }}>
-              Próximo Módulo
-            </span>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <Link to="/canchas" className="btn btn-outline-primary" style={{ padding: '0.45rem 0.85rem', fontSize: '0.8rem', flex: 1 }}>
+                <span>Ver Catálogo</span>
+                <ArrowRight size={14} />
+              </Link>
+              {isAdmin && (
+                <Link to="/admin/canchas" className="btn btn-dark" style={{ padding: '0.45rem 0.85rem', fontSize: '0.8rem', flex: 1 }}>
+                  <Settings size={14} />
+                  <span>Gestionar</span>
+                </Link>
+              )}
+            </div>
           </div>
 
           {/* Tarjeta Reservas */}

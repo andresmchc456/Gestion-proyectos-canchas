@@ -5,6 +5,8 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import CanchasCatalog from './pages/CanchasCatalog';
+import AdminCanchas from './pages/AdminCanchas';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function RootRedirect() {
@@ -25,9 +27,17 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/registro" element={<Register />} />
 
-              {/* Rutas protegidas */}
+              {/* Catálogo público y para clientes */}
+              <Route path="/canchas" element={<CanchasCatalog />} />
+
+              {/* Rutas protegidas para usuarios autenticados */}
               <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />} />
+              </Route>
+
+              {/* Rutas protegidas exclusivas para ROLE_ADMIN */}
+              <Route element={<ProtectedRoute requiredRole="ROLE_ADMIN" />}>
+                <Route path="/admin/canchas" element={<AdminCanchas />} />
               </Route>
 
               {/* Fallback */}
